@@ -17,6 +17,10 @@ che_keycloak_realm: ''
 che_keycloak_client_id: 'che-client'
 che_keycloak_host: '{{che_protocol}}://{{eval_launcher_sso_host}}'
 
+#customCheProperties
+che_workspace_java__options: -XX:MaxRAM=2048m -XX:MaxRAMFraction=2 -XX:+UseParallelGC-XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=20 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xms20m -Djava.security.egd=file:/dev/./urandom
+che_workspace_maven__options: -XX:MaxRAM=1024m -XX:MaxRAMFraction=2 -XX:+UseParallelGC -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=20 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xms20m -Djava.security.egd=file:/dev/./urandom
+
 #pvc vars
 che_persistent_volume_size: 2Gi
 
