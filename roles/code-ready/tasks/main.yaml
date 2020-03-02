@@ -20,6 +20,22 @@
 - name: Wait for codeready
   shell: "oc rollout status deployment/codeready -n {{ che_namespace }}"
 
+
+- name: "patch codeready deployment"
+  shell: "oc patch deployment codeready --patch='{\"spec\":{\"replicas\": \" 0 \" }}' -n {{ che_namespace }}"
+ 
+
+- name: Update Che configmap Java Options
+  shell: "oc patch configmap che --patch '{\"data\":{\"CHE_WORKSPACE_JAVA__OPTIONS\": \" {{che_workspace_java__options}} \" }}' -n {{che_namespace}}"
+
+- name: Update Che configmap Maven Options
+  shell: "oc patch configmap che --patch '{\"data\":{\"CHE_WORKSPACE_MAVEN__OPTIONS\": \" {{che_workspace_maven__options}} \" }}' -n {{che_namespace}}"
+
+ - name: "patch codeready deployment"
+  shell: "oc patch deployment codeready --patch='{\"spec\":{\"replicas\": \" 1 \" }}' -n {{ che_namespace }}"
+ 
+
+
 - name: Include keycloak tasks
   include_tasks: keycloak-client.yml
   when: che_multiuser|bool == true
